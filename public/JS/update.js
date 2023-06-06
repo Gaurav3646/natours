@@ -15,8 +15,8 @@ const formSettings = document.querySelector('.form-user-settings');
 const updateData = async (data, type) => {
   const url =
     type === 'password'
-      ? 'http://localhost:3000/api/v1/users/updatepassword'
-      : 'http://localhost:3000/api/v1/users/updateMe';
+      ? '/api/v1/users/updatepassword'
+      : '/api/v1/users/updateMe';
   try {
     const res = await axios({
       method: 'PATCH',
