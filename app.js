@@ -10,6 +10,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const viewRouter = require('./routes/viewRouter');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 dotenv.config({ path: './config.env' });
 
@@ -62,7 +63,7 @@ app.use(
 //   console.log('Hello from midlware 👋');
 //   next();
 // });
-
+app.use(compression());
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   // console.log(req.cookies);
