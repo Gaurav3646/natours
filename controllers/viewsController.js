@@ -47,7 +47,7 @@ exports.getResetForm = (req, res) => {
 };
 
 exports.getResetLink = (req, res) => {
-  res.status(200).render('forgetpassword', {
+  res.status(200).render('forgetPassword', {
     title: 'Send reset link to gmail',
   });
 };
