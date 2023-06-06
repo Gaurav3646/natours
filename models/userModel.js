@@ -97,8 +97,8 @@ userSchema.methods.createPasswordResetToken = function () {
   console.log({ resetToken }, this.passwordResetToken);
   var now = new Date().getTimezoneOffset();
   var t = new Date().getTime();
-  this.passwordResetExpires = new Date(t + 1 * 60 * 1000);
-  console.log(new Date(t + 1 * 60 * 1000));
+  this.passwordResetExpires = new Date(t + 10 * 60 * 1000);
+  console.log(new Date(t + 10 * 60 * 1000));
   return resetToken;
 };
 

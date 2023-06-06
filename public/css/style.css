@@ -1323,3 +1323,10 @@ body {
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
 }
+
+.left-forgetpassword-link {
+  text-align: right;
+  text-decoration: underline;
+  font-size: 1.5rem;
+  color: #777;
+}

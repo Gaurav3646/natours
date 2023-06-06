@@ -39,6 +39,19 @@ exports.getSignupForm = (req, res) => {
   });
 };
 
+exports.getResetForm = (req, res) => {
+  res.status(200).render('resetpassword', {
+    title: 'Create New Password',
+    token: req.params.token,
+  });
+};
+
+exports.getResetLink = (req, res) => {
+  res.status(200).render('forgetpassword', {
+    title: 'Send reset link to gmail',
+  });
+};
+
 exports.getAccount = (req, res) => {
   res.status(200).render('account', {
     title: 'Your account',

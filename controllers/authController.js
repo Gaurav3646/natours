@@ -203,7 +203,7 @@ exports.isloggedIn = async (req, res, next) => {
 
 exports.restrictTo = (...roles) => {
   return async (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
+    if (!req.user && !roles.includes(req.user.role)) {
       return next(
         new AppError('You do not have permission to perform this action.', 403)
       );
@@ -222,8 +222,10 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
   const resetUrl = `${req.protocol}://${req.get(
     'host'
-  )}/api/v1/users/resetpassword/${resetToken}`;
-
+  )}/resetpassword/${resetToken}`;
+  // const resetUrl = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/api/v1/users/resetpassword/${resetToken}`;
   // const message = `Forget your password? Submit a patch request with new password and passwordConfirm to: ${resetUrl}\n if you didn't forget your password please ignore this!`;
   try {
     // await sendEmail({
@@ -251,6 +253,7 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
+  console.log('resetPassword');
   const hashedToken = crypto
     .createHash('sha256')
     .update(req.params.token)
@@ -269,9 +272,13 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   }
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
+
+  console.log('changed');
   user.passwordResetToken = undefined;
   user.passwordResetExpires = undefined;
+
   await user.save();
+  console.log('user saved');
   createSendToken(user, res, 200);
   // const token = signToken(user._id);
   // res.status(200).json({

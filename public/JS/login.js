@@ -9,6 +9,7 @@ const showAlert1 = (type, msg) => {
   window.setTimeout(hideAlert1, 5000);
 };
 
+//login form
 const login = async (email, password) => {
   console.log(email, password);
   try {
@@ -44,6 +45,7 @@ if (form1) {
   });
 }
 
+// logout form
 const logout = async () => {
   try {
     const res = await axios({
@@ -63,5 +65,38 @@ if (logOutButton) {
   logOutButton.addEventListener('click', (el) => {
     console.log('logout');
     logout();
+  });
+}
+
+const resetLink = async (email) => {
+  console.log(email);
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: '/api/v1/users/forgetpassword',
+      data: {
+        email,
+      },
+    });
+    if (res.data.status === 'success') {
+      // alert('Logged In successfully!');
+      showAlert1('success', 'Send successfully!');
+      window.setTimeout(() => {
+        location.assign('/');
+      }, 150);
+    }
+  } catch (err) {
+    // alert(err.response.data.message);
+    console.log('error');
+    showAlert1('error', err.response.data.message);
+  }
+};
+
+const resetLinkForm = document.querySelector('.form--reset-link');
+if (resetLinkForm) {
+  resetLinkForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    resetLink(email);
   });
 }
