@@ -40,7 +40,7 @@ exports.getSignupForm = (req, res) => {
 };
 
 exports.getResetForm = (req, res) => {
-  res.status(200).render('passwordReset', {
+  res.status(200).render('resetPassword', {
     title: 'Create New Password',
     token: req.params.token,
   });
